@@ -9,9 +9,9 @@ export async function validateToken(req, res, next){
     try {
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
         console.log(decoded);
-        const session = await db.query(`SELECT * FROM sessions WHERE "userId"=${decoded.userId} AND active=TRUE;`);
+        const user = await db.query(`SELECT * FROM users WHERE "userId"=${decoded.userId} AND active=TRUE;`);
         if(session.rowCount>0){
-            console.log(session.rows);
+            res.locals.user = user.rows[0];
             return next();
         }
     } catch (error) {

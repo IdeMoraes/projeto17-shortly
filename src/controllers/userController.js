@@ -3,8 +3,7 @@ import { insertUser } from "../repositories/userRepository.js";
 export async function signUp(req,res){
     const {name, email, password} = req.body;
     try {
-        const result = insertUser(name, email, password);
-        console.log(result);
+        const result = await insertUser(name, email, password);
         if(result.rowCount>0){
             res.sendStatus(201);
         }

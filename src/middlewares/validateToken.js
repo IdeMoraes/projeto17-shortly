@@ -8,6 +8,7 @@ export async function validateToken(req, res, next){
     const token = authorization?.replace("Bearer ", "");
     try {
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        console.log(decoded);
         const session = await db.query(`SELECT * FROM sessions WHERE "userId"=${decoded.userId} AND active=TRUE;`);
         if(session.rowCount>0){
             next();

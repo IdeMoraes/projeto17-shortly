@@ -14,7 +14,7 @@ export async function signin(req, res){
         if(!bcrypt.compareSync(password, user.rows[0].password)){
             return res.sendStatus(401);  
         };
-        const token = jwt.sign({user: user.rows[0].id}, process.env.SECRET_KEY);
+        const token = jwt.sign({userId: user.rows[0].id}, process.env.SECRET_KEY);
         const session = await db.query(`INSERT INTO sessions ("userId", token) VALUES ($1, $2);`, [user.rows[0].id, token]);
         if(session.rowCount>0){
             res.status(200).send(token);

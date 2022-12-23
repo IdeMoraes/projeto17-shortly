@@ -11,7 +11,8 @@ export async function validateToken(req, res, next){
         console.log(decoded);
         const session = await db.query(`SELECT * FROM sessions WHERE "userId"=${decoded.userId} AND active=TRUE;`);
         if(session.rowCount>0){
-            next();
+            console.log(session.rows);
+            return next();
         }
     } catch (error) {
         console.log(error);

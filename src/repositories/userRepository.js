@@ -1,4 +1,5 @@
-import db from "../db.js"
+import db from "../db.js";
+import bcrypt from "bcrypt";
 
 export async function insertUser(name, email, password){
     const passwordHash = bcrypt.hashSync(password, 10);

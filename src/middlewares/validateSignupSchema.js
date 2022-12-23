@@ -7,14 +7,14 @@ const userSchema = joi.object({
     confirmPassword: joi.string().required()
 });
 
-export function validateUserSchema(req,res,next){
+export function validateSignupSchema(req, res, next){
     const user = req.body;
     const validation = userSchema.validate(user);
     if(validation.error){
         return res.sendStatus(422);
-    }
+    };
     if(user.password !== user.confirmPassword){
         return res.sendStatus(422);
-    }
+    };
     next();
 };
